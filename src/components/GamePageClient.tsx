@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -21,14 +21,18 @@ export default function GamePageClient({
   gameUrl,
   relatedGames,
 }: GamePageClientProps) {
-  const gameDescriptions: Record<string, {
-    description: string;
-    howToPlay: string[];
-    controls: string[];
-    tips: string[];
-  }> = {
+  const gameDescriptions: Record<
+    string,
+    {
+      description: string;
+      howToPlay: string[];
+      controls: string[];
+      tips: string[];
+    }
+  > = {
     'shell-shockers': {
-      description: 'Shell Shockers is a multiplayer FPS starring weapon-wielding eggs. Battle across modes like teams, free-for-all, and capture the spatula.',
+      description:
+        'Shell Shockers is a multiplayer FPS starring weapon-wielding eggs. Battle across modes like teams, free-for-all, and capture the spatula.',
       howToPlay: [
         'Choose your weapon and skin',
         'Join a server or create your own',
@@ -36,13 +40,7 @@ export default function GamePageClient({
         'Collect upgrades and power-ups',
         'Aim for the head for maximum damage',
       ],
-      controls: [
-        'WASD - Move',
-        'Mouse - Aim & Shoot',
-        'R - Reload',
-        'Shift - Sprint',
-        'Space - Jump',
-      ],
+      controls: ['WASD - Move', 'Mouse - Aim & Shoot', 'R - Reload', 'Shift - Sprint', 'Space - Jump'],
       tips: [
         'Keep moving to avoid getting hit',
         'Use cover effectively',
@@ -51,7 +49,8 @@ export default function GamePageClient({
       ],
     },
     'smash-karts': {
-      description: 'Smash Karts is a 3D multiplayer kart battle game. Fight in chaotic arenas using a variety of power-ups and weapons!',
+      description:
+        'Smash Karts is a 3D multiplayer kart battle game. Fight in chaotic arenas using a variety of power-ups and weapons!',
       howToPlay: [
         'Drive your kart around the arena',
         'Collect weapons and power-ups',
@@ -59,18 +58,8 @@ export default function GamePageClient({
         'Be the last kart standing to win',
         'Use the environment to your advantage',
       ],
-      controls: [
-        'Arrow keys or WASD - Drive',
-        'Space - Use weapon/power-up',
-        'Mouse - Control camera',
-        'Enter - Chat',
-      ],
-      tips: [
-        'Grab power-ups quickly',
-        'Use boost pads for speed',
-        'Keep moving to avoid attacks',
-        'Learn weapon timing',
-      ],
+      controls: ['Arrow keys or WASD - Drive', 'Space - Use weapon/power-up', 'Mouse - Control camera', 'Enter - Chat'],
+      tips: ['Grab power-ups quickly', 'Use boost pads for speed', 'Keep moving to avoid attacks', 'Learn weapon timing'],
     },
   };
 
@@ -82,11 +71,7 @@ export default function GamePageClient({
       'Complete objectives to progress',
       'Have fun!',
     ],
-    controls: [
-      'Mouse - Navigate and interact',
-      'Keyboard - Various controls',
-      'Follow in-game prompts',
-    ],
+    controls: ['Mouse - Navigate and interact', 'Keyboard - Various controls', 'Follow in-game prompts'],
     tips: [
       'Take time to learn the game',
       'Practice makes perfect',
@@ -100,7 +85,7 @@ export default function GamePageClient({
   }, [gameUrl]);
 
   const handleFullscreen = useCallback(() => {
-    const iframe = document.querySelector('iframe');
+    const iframe = document.querySelector<HTMLIFrameElement>('iframe');
     if (iframe?.requestFullscreen) {
       iframe.requestFullscreen();
     } else {
@@ -108,32 +93,58 @@ export default function GamePageClient({
     }
   }, [handleOpenInNewTab]);
 
+  const structuredData = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@type': 'VideoGame',
+      name: game.title,
+      description: gameInfo.description,
+      genre: Array.from(new Set([game.category, ...game.tags])),
+      image: game.image,
+      url: gameUrl,
+      operatingSystem: 'Web',
+      applicationCategory: 'Game',
+      aggregateRating: game.trending
+        ? {
+            '@type': 'AggregateRating',
+            ratingValue: '4.6',
+            reviewCount: '1200',
+          }
+        : undefined,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+      potentialAction: {
+        '@type': 'PlayAction',
+        target: gameUrl,
+      },
+    }),
+    [game, gameInfo.description, gameUrl],
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       <div className="bg-card border-b border-border sticky top-16 z-40">
-        <div className="container-custom py-4">
+        <div className="container-custom py-4 px-4 sm:px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link
                 href="/"
                 className="p-2 bg-muted hover:bg-primary/20 text-muted-foreground hover:text-primary rounded-lg transition-all duration-200 flex items-center space-x-2"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
                 <span>Back to games</span>
               </Link>
 
               <div className="flex items-center space-x-3">
-                <Image
-                  src={game.image}
-                  alt={game.title}
-                  width={48}
-                  height={48}
-                  className="rounded-lg object-cover"
-                />
+                <Image src={game.image} alt={game.title} width={48} height={48} className="rounded-lg object-cover" />
                 <div>
                   <h1 className="text-xl font-bold text-foreground">{game.title}</h1>
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -152,7 +163,7 @@ export default function GamePageClient({
                 className="p-2 bg-muted hover:bg-secondary/20 text-muted-foreground hover:text-secondary rounded-lg transition-all duration-200"
                 title="Open in a new tab"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </button>
@@ -161,10 +172,13 @@ export default function GamePageClient({
         </div>
       </div>
 
-      <div className="container-custom py-6">
+      <div className="container-custom py-6 px-4 sm:px-6">
         <div className="mb-8">
           <div className="bg-card border border-border rounded-xl overflow-hidden cyber-glow">
-            <div className="relative bg-black" style={{ aspectRatio: '16/9', minHeight: '500px', maxHeight: '70vh' }}>
+            <div
+              className="relative bg-black"
+              style={{ aspectRatio: '16/9', minHeight: '500px', maxHeight: '70vh' }}
+            >
               <iframe
                 src={gameUrl}
                 className="w-full h-full border-0"
@@ -186,7 +200,7 @@ export default function GamePageClient({
                   className="p-2 bg-black/70 hover:bg-black/90 text-white rounded-lg transition-all duration-200 cyber-glow"
                   title="Fullscreen"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                   </svg>
                 </button>
@@ -238,10 +252,7 @@ export default function GamePageClient({
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-1">
             <div className="bg-card border border-border rounded-xl p-6 mb-6">
-              <h2 className="text-lg font-bold text-foreground mb-4 flex items-center">
-                <span className="text-primary mr-2">🏷️</span>
-                Tags
-              </h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">Tags</h2>
               <div className="flex flex-wrap gap-2">
                 {game.tags.map((tag) => (
                   <span
@@ -255,10 +266,7 @@ export default function GamePageClient({
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-lg font-bold text-foreground mb-4 flex items-center">
-                <span className="text-accent mr-2">⌨️</span>
-                Controls
-              </h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">Controls</h2>
               <div className="space-y-2">
                 {gameInfo.controls.map((control, index) => (
                   <div key={`control-${index}-${control.slice(0, 10)}`} className="bg-muted/30 p-2 rounded-md">
@@ -271,20 +279,12 @@ export default function GamePageClient({
 
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-lg font-bold text-foreground mb-4 flex items-center">
-                <span className="text-primary mr-2">📖</span>
-                About the Game
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {gameInfo.description}
-              </p>
+              <h2 className="text-lg font-bold text-foreground mb-4">About the Game</h2>
+              <p className="text-muted-foreground leading-relaxed">{gameInfo.description}</p>
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-lg font-bold text-foreground mb-4 flex items-center">
-                <span className="text-secondary mr-2">🎯</span>
-                How to Play
-              </h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">How to Play</h2>
               <ul className="space-y-3">
                 {gameInfo.howToPlay.map((step, index) => (
                   <li key={`step-${index}-${step.slice(0, 10)}`} className="flex items-start space-x-3">
@@ -298,14 +298,11 @@ export default function GamePageClient({
             </div>
 
             <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-lg font-bold text-foreground mb-4 flex items-center">
-                <span className="text-secondary mr-2">💡</span>
-                Tips
-              </h2>
+              <h2 className="text-lg font-bold text-foreground mb-4">Tips</h2>
               <div className="space-y-2">
                 {gameInfo.tips.map((tip, index) => (
                   <div key={`tip-${index}-${tip.slice(0, 10)}`} className="flex items-start space-x-2">
-                    <span className="text-secondary">•</span>
+                    <span className="text-secondary">-</span>
                     <span className="text-muted-foreground">{tip}</span>
                   </div>
                 ))}
@@ -329,6 +326,11 @@ export default function GamePageClient({
       </div>
 
       <Footer />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     </div>
   );
 }

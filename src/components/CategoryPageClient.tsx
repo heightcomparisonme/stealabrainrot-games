@@ -66,19 +66,40 @@ export default function CategoryPageClient({
 
   const hasActiveFilters = searchQuery.length > 0 || selectedTags.length > 0;
 
+  const structuredData = useMemo(() => {
+    const topGames = categoryGames.slice(0, 8).map((game, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `https://stealabrainrot.games${game.href}`,
+      name: game.title,
+    }));
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: `${categoryInfo.name} Games`,
+      description: `Play free ${categoryInfo.name.toLowerCase()} games online.`,
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: topGames,
+      },
+    };
+  }, [categoryGames, categoryInfo]);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       <main>
-        <section className="hero-gradient py-16">
+        <section className="hero-gradient py-16 px-4 sm:px-6">
           <div className="container-custom text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 flex items-center justify-center">
-              <span className="text-6xl mr-4">{categoryInfo.icon}</span>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-6 flex items-center justify-center">
+              <span className="text-5xl sm:text-6xl mr-4">{categoryInfo.icon}</span>
               {categoryInfo.name} Games
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Explore our curated selection of {categoryInfo.name} games with {categoryGames.length} exciting titles. Start playing now and enjoy endless fun!
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Explore our curated selection of {categoryInfo.name} games with {categoryGames.length}{' '}
+              exciting titles. Start playing now and enjoy endless fun!
             </p>
 
             <div className="max-w-2xl mx-auto mb-6">
@@ -103,7 +124,7 @@ export default function CategoryPageClient({
         </section>
 
         {showFilters && (
-          <section className="py-8 bg-muted/20 border-b border-border">
+          <section className="py-8 bg-muted/20 border-b border-border px-4 sm:px-6">
             <div className="container-custom">
               <div className="space-y-6">
                 <div>
@@ -173,7 +194,7 @@ export default function CategoryPageClient({
           </section>
         )}
 
-        <section className="py-8 bg-background">
+        <section className="py-8 bg-background px-4 sm:px-6">
           <div className="container-custom">
             <div className="flex items-center justify-between mb-6">
               <h2 className="section-title">
@@ -223,10 +244,12 @@ export default function CategoryPageClient({
           </div>
         </section>
 
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-card px-4 sm:px-6">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-6">About {categoryInfo.name} Games</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">
+                About {categoryInfo.name} Games
+              </h2>
               <div className="text-muted-foreground mb-8">
                 {getCategoryDescription(category)}
               </div>
@@ -260,6 +283,11 @@ export default function CategoryPageClient({
       </main>
 
       <Footer />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     </div>
   );
 }
