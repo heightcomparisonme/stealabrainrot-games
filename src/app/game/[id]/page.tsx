@@ -76,7 +76,7 @@ export default async function GamePage({ params }: GamePageProps) {
     '10x10': 'https://10x10.plus/',
   };
 
-  const gameUrl = gameUrls[game.id] ?? `https://www.gamepix.com${game.href}`;
+  const gameUrl = gameUrls[game.id] ?? `https://www.Steal a Brainrot.com${game.href}`;
 
   const relatedGames = games
     .filter(

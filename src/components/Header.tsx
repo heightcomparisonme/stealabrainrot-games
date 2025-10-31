@@ -21,7 +21,7 @@ export default function Header() {
             <Link href="/">
               <img
                 src="https://ext.same-assets.com/54244373/3952684937.png"
-                alt="GamePix"
+                alt="Steal a Brainrot"
                 className="h-8 w-auto cyber-glow transition-all duration-300 hover:scale-105"
               />
             </Link>

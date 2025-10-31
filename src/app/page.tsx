@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default function HomePage() 
+
+{
   return <HomePageClient games={games} />;
 }

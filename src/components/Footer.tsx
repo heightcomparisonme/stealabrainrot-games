@@ -2,17 +2,17 @@ import Link from 'next/link';
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Facebook', href: 'https://www.facebook.com/GamePix', icon: '📘' },
-    { name: 'Instagram', href: 'https://www.instagram.com/gamepix/', icon: '📷' },
-    { name: 'LinkedIn', href: 'https://it.linkedin.com/company/gamepix', icon: '💼' },
-    { name: 'TikTok', href: 'https://www.tiktok.com/@gamepix', icon: '🎵' },
-    { name: 'YouTube', href: 'https://www.youtube.com/@Gamepixofficial', icon: '📺' },
-    { name: 'X (Twitter)', href: 'https://x.com/gamepix', icon: '𝕏' }
+    { name: 'Facebook', href: 'https://www.facebook.com/Steal a Brainrot', icon: '📘' },
+    { name: 'Instagram', href: 'https://www.instagram.com/Steal a Brainrot/', icon: '📷' },
+    { name: 'LinkedIn', href: 'https://it.linkedin.com/company/Steal a Brainrot', icon: '💼' },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@Steal a Brainrot', icon: '🎵' },
+    { name: 'YouTube', href: 'https://www.youtube.com/@Steal a Brainrotofficial', icon: '📺' },
+    { name: 'X (Twitter)', href: 'https://x.com/Steal a Brainrot', icon: '𝕏' }
   ];
 
   const footerLinks = [
-    { name: 'About Us', href: 'https://partners.gamepix.com' },
-    { name: 'Contact Us', href: 'https://partners.gamepix.com/contact' },
+    { name: 'About Us', href: 'https://partners.Steal a Brainrot.com' },
+    { name: 'Contact Us', href: 'https://partners.Steal a Brainrot.com/contact' },
     { name: 'Privacy Policy', href: '/privacy-cookie' },
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Cookie Policy', href: '/cookies' }
@@ -28,15 +28,15 @@ export default function Footer() {
             <div className="flex items-center mb-4">
               <img
                 src="https://ext.same-assets.com/54244373/3952684937.png"
-                alt="GamePix"
+                alt="Steal a Brainrot"
                 className="h-8 w-auto"
               />
             </div>
             <p className="text-muted-foreground mb-4">
-              GamePix is your gateway to the best <strong>free online games</strong>, offering instant access to thousands of titles. No lengthy installs or interruptions — just pick a game and play anywhere, on any device!
+              Experience the ultimate <strong>Brainrot collection game</strong>! Build your collection, generate income, and steal from others in this revolutionary Roblox-style strategy game. Play instantly with no downloads required!
             </p>
             <p className="text-sm text-muted-foreground">
-              Unlock the fun of GamePix — start playing today!
+              Start your Brainrot empire today — collect, steal, and dominate!
             </p>
           </div>
 
@@ -82,20 +82,19 @@ export default function Footer() {
 
         {/* Game Categories Links */}
         <div className="border-t border-border pt-8 mb-8">
-          <h3 className="font-bold text-foreground mb-4">Popular Categories</h3>
+          <h3 className="font-bold text-foreground mb-4">Game Features</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              'Action Games', 'Puzzle Games', 'Racing Games', 'Sports Games',
-              'IO Games', 'Casual Games', 'Kids Games', 'Shooter Games',
-              'Adventure Games', 'Strategy Games', 'RPG Games', 'Card Games'
-            ].map((category) => (
-              <Link
-                key={category}
-                href={`#${category.toLowerCase().replace(' ', '-')}`}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              'Brainrot Collection', 'Meme Characters', 'Income Generation', 'Stealing Mechanics',
+              'Roblox Style', 'Strategy Games', 'Multiplayer', 'Free to Play',
+              'Browser Games', 'Instant Play', 'Character Trading', 'Base Building'
+            ].map((feature) => (
+              <span
+                key={feature}
+                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200 cursor-pointer"
               >
-                {category}
-              </Link>
+                {feature}
+              </span>
             ))}
           </div>
         </div>
@@ -105,14 +104,14 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-sm text-muted-foreground">
               <p className="mb-1">
-                GamePix s.r.l. Via Marsala 29h<br />
+                Steal a Brainrot s.r.l. Via Marsala 29h<br />
                 0185 Rome, Italy VAT: 12327731001<br />
                 REA: RM-1365971
               </p>
             </div>
 
             <div className="text-sm text-muted-foreground">
-              © 2025 GamePix. All rights reserved.
+              © 2025 Steal a Brainrot. All rights reserved.
             </div>
           </div>
         </div>
@@ -120,17 +119,17 @@ export default function Footer() {
         {/* For Developers Section */}
         <div className="border-t border-border pt-8 mt-8">
           <div className="text-center">
-            <h3 className="font-bold text-foreground mb-2">For Developers</h3>
+            <h3 className="font-bold text-foreground mb-2">Join the Brainrot Community</h3>
             <p className="text-muted-foreground mb-4">
-              GamePix isn’t just for players — we provide a platform for developers to reach a global audience.
+              Connect with thousands of players worldwide in the ultimate Brainrot collection experience. Share strategies, trade characters, and compete for the top spot!
             </p>
             <a
-              href="https://partners.gamepix.com/"
+              href="https://partners.stealabrainrot.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-block"
             >
-              Join us and bring your games to millions of passionate players
+              Start Playing Now - Build Your Brainrot Empire
             </a>
           </div>
         </div>

@@ -10,7 +10,7 @@ interface GamePlayerProps {
 }
 
 export default function GamePlayer({
-  gameUrl = "https://nowgg.me/play/brazilian-spyder/9637/steal-a-brainrot",
+  gameUrl = "https://st.8games.net/9/8g/igra-ukradi-brejnrot-original-3d/",
   gameName = "Steal a Brainrot",
   thumbnail = "https://ext.same-assets.com/3187520992/3746487869.png"
 }: GamePlayerProps) {

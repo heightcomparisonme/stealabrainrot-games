@@ -7,6 +7,7 @@ import SearchBar from '@/components/SearchBar';
 import GameFilter from '@/components/GameFilter';
 import GameSection from '@/components/GameSection';
 import Footer from '@/components/Footer';
+import StealaBrainrot from '@/components/StealaBrainrot';
 import type { Game } from '@/lib/games';
 
 interface HomePageClientProps {
@@ -108,18 +109,16 @@ export default function HomePageClient({ games }: HomePageClientProps) {
         <section className="hero-gradient py-16 px-4 sm:px-6">
           <div className="container-custom text-center">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Free Online Games
+              Steal a Brainrot Games
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              StealABrainrot Games is your gateway to the best free online games, offering instant
-              access to thousands of titles. No lengthy installs or annoying interruptions—just pick
-              a game and start playing anytime, anywhere, on any device!
+              Experience the ultimate Brainrot collection game! Step into a Roblox-style world full of absurd meme characters. Build your collection, generate income, and steal from others in this revolutionary strategy game. Play instantly - no downloads required!
             </p>
 
             <div className="max-w-2xl mx-auto mb-6">
               <SearchBar
                 onSearch={handleSearch}
-                placeholder="Search games, categories, or tags..."
+                placeholder="Search Brainrot games, characters, or features..."
                 className="mb-4"
               />
             </div>
@@ -139,11 +138,14 @@ export default function HomePageClient({ games }: HomePageClientProps) {
                 )}
               </button>
               <a href="#most-played" className="btn-primary">
-                🔥 Most Played
+                🎮 Play Steal a Brainrot
               </a>
             </div>
           </div>
         </section>
+
+        {/* Featured Game Section */}
+        <StealaBrainrot />
 
         {showFilters && (
           <section className="py-8 bg-muted/20 border-b border-border px-4 sm:px-6">
