@@ -327,7 +327,7 @@ export default function BrainrotLinkScannerPage() {
     setResult(analyzeUrl(parsedUrl));
   };
 
-  const useQuickLink = (link: string) => {
+  const handleQuickLink = (link: string) => {
     setUrlInput(link);
     const parsedUrl = normalizeUrl(link);
     if (parsedUrl) {
@@ -413,7 +413,7 @@ export default function BrainrotLinkScannerPage() {
                       <button
                         key={item.url}
                         type="button"
-                        onClick={() => useQuickLink(item.url)}
+                        onClick={() => handleQuickLink(item.url)}
                         className="px-3 py-2 rounded-md text-sm bg-muted/40 border border-border hover:border-primary/60 transition-all duration-200"
                       >
                         {item.label}
@@ -650,7 +650,7 @@ export default function BrainrotLinkScannerPage() {
               </p>
             </div>
             <button
-              onClick={() => useQuickLink('https://stealabrainrot.games/')}
+              onClick={() => handleQuickLink('https://stealabrainrot.games/')}
               className="btn-primary"
             >
               Scan the official site
