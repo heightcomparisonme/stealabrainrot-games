@@ -11,6 +11,7 @@ const staticPaths = [
   'trending',
   'new',
   'specials',
+  'brainrot-link-scanner',
   'recently-played',
 ];
 

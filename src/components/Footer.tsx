@@ -15,6 +15,7 @@ export default function Footer() {
     { name: 'Contact Us', href: 'https://partners.Steal a Brainrot.com/contact' },
     { name: 'Privacy Policy', href: '/privacy-cookie' },
     { name: 'Terms of Service', href: '/terms' },
+    { name: 'Brainrot Link Scanner', href: '/brainrot-link-scanner' },
     { name: 'Cookie Policy', href: '/cookies' }
   ];
 
